@@ -8,6 +8,7 @@
   },
   "type": "module",
   "devDependencies": {
+    "@types/zxcvbn": "^4.4.1",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
     "prettier": "^2.8.1",
@@ -26,7 +27,8 @@
     "solid-js": "^1.6.2",
     "solid-start": "^0.2.0",
     "undici": "^5.11.0",
-    "zod": "^3.20.2"
+    "zod": "^3.20.2",
+    "zxcvbn": "^4.4.2"
   },
   "engines": {
     "node": ">=16"

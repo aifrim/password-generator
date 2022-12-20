@@ -1,4 +1,5 @@
 import { createEffect, createSignal, onMount } from 'solid-js'
+import Estimation from '~/components/Estimation'
 import Footer from '~/components/Footer'
 import Password from '~/components/Password'
 import RadioGroup from '~/components/RadioGroup'
@@ -9,10 +10,10 @@ type PasswordType = 'random' | 'mnemonic'
 
 export default function Home() {
   const [password, setPassword] = createSignal('')
-  const [type, setType] = createSignal<PasswordType>('mnemonic')
+  const [type, setType] = createSignal<PasswordType>('random')
 
   const [size, setSize] = createSignal(16)
-  const [words, setWords] = createSignal(6)
+  const [words, setWords] = createSignal(2)
 
   const generate = () => {
     if (type() === 'random') {
@@ -33,6 +34,8 @@ export default function Home() {
 
         <div class='flex gap-2 flex-col'>
           <Password password={password} placeholder='Waiting for password' />
+
+          <Estimation password={password} />
 
           <div class='block w-full px-3 py-2 bg-white border border-slate-200 rounded-md'>
             <h2 class='text-xl text-sky-700 font-bolder mb-2'>
@@ -58,7 +61,7 @@ export default function Home() {
               {type() === 'random' ? (
                 <Range min={8} max={64} value={size} onChange={setSize} />
               ) : (
-                <Range min={4} max={8} value={words} onChange={setWords} />
+                <Range min={1} max={8} value={words} onChange={setWords} />
               )}
             </div>
           </div>
