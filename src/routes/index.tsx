@@ -7,7 +7,7 @@ import Range from '~/components/Range'
 type PasswordType = 'random' | 'mnemonic'
 
 export default function Home() {
-  const [password, setPassword] = createSignal('this is the password')
+  const [password, setPassword] = createSignal('')
   const [type, setType] = createSignal<PasswordType>('random')
 
   const [size, setSize] = createSignal(16)
@@ -21,7 +21,7 @@ export default function Home() {
         </h1>
 
         <div class='flex gap-2 flex-col'>
-          <Password password={password} />
+          <Password password={password} placeholder="Waiting for password" />
 
           <div class='block w-full px-3 py-2 bg-white border border-slate-200 rounded-md'>
             <h2 class='text-xl text-sky-700 font-bolder mb-2'>

@@ -1,10 +1,11 @@
 import { Accessor } from 'solid-js'
 
 type PasswordProps = {
-  password: Accessor<string>
+  password: Accessor<string>,
+  placeholder: string,
 }
 
-export default function Password({ password }: PasswordProps) {
+export default function Password({ password, placeholder }: PasswordProps) {
   return (
     <div
       class='
@@ -15,14 +16,14 @@ export default function Password({ password }: PasswordProps) {
       focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
     '
     >
-      <input class='bg-transparent outline-none' readOnly value={password()} />
+      <input class='bg-transparent outline-none' readOnly value={password()} placeholder={placeholder} />
 
       <span
         class='
-      material-symbols-rounded
-      cursor-pointer
-      text-indigo-500 hover:text-indigo-900
-    '
+          material-symbols-rounded
+          cursor-pointer
+          text-indigo-500 hover:text-indigo-900
+        '
       >
         content_copy
       </span>
