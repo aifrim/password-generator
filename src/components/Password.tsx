@@ -9,7 +9,8 @@ export default function Password({ password, placeholder }: PasswordProps) {
   return (
     <div
       class='
-      flex justify-between
+      flex justify-between items-center text-4xl
+      overflow-hidden
       mt-1 block w-full px-3 py-2 bg-sky-100 border
       border-sky-500 rounded-md text-sm shadow-sm placeholder-slate-400
       hover:outline-none hover:border-sky-500 hover:ring-1 hover:ring-sky-500
@@ -17,7 +18,7 @@ export default function Password({ password, placeholder }: PasswordProps) {
     '
     >
       <input
-        class='grow bg-transparent outline-none'
+        class='grow bg-transparent outline-none text-ellipsis'
         readOnly
         value={password()}
         placeholder={placeholder}

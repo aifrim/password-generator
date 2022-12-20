@@ -1,12 +1,26 @@
 import { createEffect, createSignal, onMount } from 'solid-js'
+import { createStore } from 'solid-js/store'
+import CheckboxGroup from '~/components/CheckboxGroup'
 import Estimation from '~/components/Estimation'
 import Footer from '~/components/Footer'
 import Password from '~/components/Password'
 import RadioGroup from '~/components/RadioGroup'
 import Range from '~/components/Range'
 import generateMnemonicPassword from '~/libs/ui/generate-mnemonic-password'
+import generateRandomPassword, {
+  RandomPasswordCharacters,
+  RandomPasswordStructure
+} from '~/libs/ui/generate-random-password'
 
 type PasswordType = 'random' | 'mnemonic'
+
+const defaultOptions: { key: keyof RandomPasswordCharacters; title: string }[] =
+  [
+    { key: 'uppercase', title: 'Uppsercase' },
+    { key: 'lowercase', title: 'Lowercase' },
+    { key: 'numbers', title: 'Numbers' },
+    { key: 'symbols', title: 'Symbols' }
+  ]
 
 export default function Home() {
   const [password, setPassword] = createSignal('')
@@ -15,8 +29,26 @@ export default function Home() {
   const [size, setSize] = createSignal(16)
   const [words, setWords] = createSignal(2)
 
+  const [structure, setStructure] =
+    createSignal<RandomPasswordStructure>('easy-to-read')
+
+  const [characters, setCharacters] = createStore<RandomPasswordCharacters>({
+    uppercase: true,
+    lowercase: true,
+    numbers: true,
+    symbols: true
+  })
+
+  const [options, setOptions] = createSignal(defaultOptions)
+
   const generate = () => {
     if (type() === 'random') {
+      const pwd = generateRandomPassword(size(), {
+        structure: structure(),
+        ...characters
+      })
+
+      setPassword(pwd)
     } else {
       generateMnemonicPassword(words()).then((pwd) => setPassword(pwd))
     }
@@ -24,6 +56,36 @@ export default function Home() {
 
   onMount(generate)
   createEffect(generate)
+
+  createEffect(() => {
+    switch (structure()) {
+      case 'easy-to-say': {
+        setOptions(() =>
+          defaultOptions.filter(({ key }) =>
+            ['lowercase', 'uppercase'].includes(key)
+          )
+        )
+        setCharacters({
+          uppercase: true,
+          lowercase: true,
+          numbers: false,
+          symbols: false
+        })
+        break;
+      }
+      case 'easy-to-read':
+      case 'all': {
+        setOptions(defaultOptions);
+        setCharacters({
+          uppercase: true,
+          lowercase: true,
+          numbers: true,
+          symbols: true
+        })
+        break
+      }
+    }
+  })
 
   return (
     <main class='w-screen h-screen flex items-center justify-center mx-auto text-gray-700 bg-slate-50 p-4'>
@@ -42,29 +104,58 @@ export default function Home() {
               Customize your password
             </h2>
 
-            <RadioGroup<PasswordType>
-              title='Password type'
-              name='pwd-type'
-              value={type}
-              values={[
-                { value: 'random', title: 'Random' },
-                { value: 'mnemonic', title: 'Mnemonic' }
-              ]}
-              onSelect={setType}
-            />
+            <div class='flex gap-2 justify-between'>
+              <div>
+                <RadioGroup<PasswordType>
+                  name='pwd-type'
+                  title='Password type'
+                  value={type}
+                  onSelect={setType}
+                  options={[
+                    { value: 'random', title: 'Random' },
+                    { value: 'mnemonic', title: 'Mnemonic' }
+                  ]}
+                />
 
-            <div>
-              <h4 class='font-bold my-1'>
-                {type() === 'random' ? 'Password length' : 'Number of words'}
-              </h4>
+                <div>
+                  <h4 class='font-bold my-1'>
+                    {type() === 'random'
+                      ? 'Password length'
+                      : 'Number of words'}
+                  </h4>
+
+                  {type() === 'random' ? (
+                    <Range min={8} max={64} value={size} onChange={setSize} />
+                  ) : (
+                    <Range min={1} max={8} value={words} onChange={setWords} />
+                  )}
+                </div>
+              </div>
 
               {type() === 'random' ? (
-                <Range min={8} max={64} value={size} onChange={setSize} />
-              ) : (
-                <Range min={1} max={8} value={words} onChange={setWords} />
-              )}
+                <div class='flex gap-4'>
+                  <RadioGroup<RandomPasswordStructure>
+                    name='pwd-struc'
+                    value={structure}
+                    onSelect={setStructure}
+                    options={[
+                      { value: 'easy-to-say', title: 'Easy to say' },
+                      { value: 'easy-to-read', title: 'Easy to read' },
+                      { value: 'all', title: 'All' }
+                    ]}
+                  />
+
+                  <CheckboxGroup<keyof RandomPasswordCharacters>
+                    name='characters-type'
+                    value={characters}
+                    onSelect={setCharacters}
+                    options={options}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
+
           <div>
             <button
               onclick={generate}

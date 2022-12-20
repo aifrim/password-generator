@@ -1,22 +1,21 @@
-import { Accessor, createEffect } from 'solid-js'
+import { Accessor, createEffect, Setter } from 'solid-js'
 import Radio from '../components/Radio'
 
 type RadioGroupProps<T extends string> = {
-  title: string
+  name: string
+  title?: string
 
   value: Accessor<T>
-  values: { title: string; value: T }[]
+  options: { title: string; value: T }[]
 
-  name: string
-
-  onSelect: (value: T) => void
+  onSelect: Setter<T>
 }
 
-export default function RadioGroup<T extends string = string>({
+export default function CheckboxGroup<T extends string = string>({
+  name,
   title,
   value,
-  values,
-  name,
+  options,
   onSelect
 }: RadioGroupProps<T>) {
   let typeGroup!: HTMLDivElement
@@ -31,15 +30,15 @@ export default function RadioGroup<T extends string = string>({
 
   return (
     <div ref={typeGroup}>
-      <h4 class='font-bold mb-1'>{title}</h4>
+      {title ? <h4 class='font-bold mb-1'>{title}</h4> : null}
 
-      {values?.map(({ value: v, title }) => (
+      {options?.map(({ value: v, title }) => (
         <Radio
           checked={value() === v}
           value={v}
           name={name}
           title={title}
-          onSelect={() => onSelect(v)}
+          onSelect={() => onSelect(() => v)}
         />
       ))}
     </div>

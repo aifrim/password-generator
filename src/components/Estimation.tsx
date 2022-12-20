@@ -1,18 +1,20 @@
-import { Accessor, createEffect, createSignal } from 'solid-js';
-import zxcvbn from 'zxcvbn';
+import { Accessor, createEffect, createSignal } from 'solid-js'
+import zxcvbn from 'zxcvbn'
 
 type EstimationProps = {
-  password: Accessor<string>;
+  password: Accessor<string>
 }
 
 export default function Estimation({ password }: EstimationProps) {
-  const [estimation, setEstimation] = createSignal(0);
+  const [estimation, setEstimation] = createSignal(0)
 
   createEffect(() => {
-    if (!password().length) { return }
+    if (!password().length) {
+      return
+    }
 
-    const zxcvbnEst = zxcvbn(password());
-    setEstimation(zxcvbnEst.score * 100 / 4)
+    const zxcvbnEst = zxcvbn(password())
+    setEstimation((zxcvbnEst.score * 100) / 4)
   })
 
   const getColor = (wanted: number) => {
@@ -31,11 +33,28 @@ export default function Estimation({ password }: EstimationProps) {
     }
   }
 
-
-  return <div class='flex gap-2'>
-    <div class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(25)}`} />
-    <div class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(50)}`} />
-    <div class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(75)}`} />
-    <div class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(100)}`} />
-  </div>
+  return (
+    <div class='flex gap-2'>
+      <div
+        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
+          25
+        )}`}
+      />
+      <div
+        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
+          50
+        )}`}
+      />
+      <div
+        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
+          75
+        )}`}
+      />
+      <div
+        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
+          100
+        )}`}
+      />
+    </div>
+  )
 }

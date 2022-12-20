@@ -1,28 +1,24 @@
-import { createEffect, createSignal } from 'solid-js'
+import { createSignal } from 'solid-js'
 
-type RadioProps = {
+type CheckboxProps = {
   checked: boolean
-  value: string
 
-  name: string
   title: string
 
-  onSelect: () => void
+  onToggle: () => void
 }
 
-export default function Radio({
+export default function Checkbox({
   checked: propChecked,
-  value,
-  name,
   title,
-  onSelect
-}: RadioProps) {
+  onToggle
+}: CheckboxProps) {
   const [checked, setChecked] = createSignal(propChecked)
 
   const onClick = () => {
     setChecked(!checked())
 
-    onSelect()
+    onToggle()
   }
 
   return (
@@ -33,8 +29,7 @@ export default function Radio({
       '
       onClick={onClick}
     >
-      <input type='radio' name={name} value={value} checked={checked()} />
-
+      <input type='checkbox' checked={checked()} />
       {title}
     </div>
   )
