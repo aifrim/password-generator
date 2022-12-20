@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { createEffect, createSignal, onMount } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import CheckboxGroup from '~/components/CheckboxGroup'
@@ -6,11 +7,11 @@ import Footer from '~/components/Footer'
 import Password from '~/components/Password'
 import RadioGroup from '~/components/RadioGroup'
 import Range from '~/components/Range'
-import generateMnemonicPassword from '~/libs/ui/generate-mnemonic-password'
+import generateMnemonicPassword from '~/libs/generate-mnemonic-password'
 import generateRandomPassword, {
   RandomPasswordCharacters,
   RandomPasswordStructure
-} from '~/libs/ui/generate-random-password'
+} from '~/libs/generate-random-password'
 
 type PasswordType = 'random' | 'mnemonic'
 
@@ -71,11 +72,11 @@ export default function Home() {
           numbers: false,
           symbols: false
         })
-        break;
+        break
       }
       case 'easy-to-read':
       case 'all': {
-        setOptions(defaultOptions);
+        setOptions(defaultOptions)
         setCharacters({
           uppercase: true,
           lowercase: true,
@@ -88,19 +89,33 @@ export default function Home() {
   })
 
   return (
-    <main class='w-screen h-screen flex items-center justify-center mx-auto text-gray-700 bg-slate-50 p-4'>
+    <main
+      class={classNames(
+        'w-screen h-screen',
+        'flex items-center justify-center',
+        'mx-auto  p-4',
+        'text-gray-700 bg-slate-50'
+      )}
+    >
       <div class='max-w-full w-[900px]'>
-        <h1 class='text-2xl text-red-700 font-bolder my-4'>
+        <h1 class={classNames('text-2xl text-red-700 font-bolder', 'my-4')}>
           [draft] Password Generator
         </h1>
 
-        <div class='flex gap-2 flex-col'>
+        <div class='flex flex-col gap-2'>
           <Password password={password} placeholder='Waiting for password' />
 
           <Estimation password={password} />
 
-          <div class='block w-full px-3 py-2 bg-white border border-slate-200 rounded-md'>
-            <h2 class='text-xl text-sky-700 font-bolder mb-2'>
+          <div
+            class={classNames(
+              'block w-full',
+              'px-3 py-2',
+              'bg-white border border-slate-200',
+              'rounded-md'
+            )}
+          >
+            <h2 class={classNames('mb-2', 'text-xl text-sky-700 font-bolder')}>
               Customize your password
             </h2>
 
@@ -159,7 +174,11 @@ export default function Home() {
           <div>
             <button
               onclick={generate}
-              class='px-4 py-2 font-semibold text-sm bg-cyan-500 text-white rounded-md shadow-sm'
+              class={classNames(
+                'px-4 py-2',
+                'font-semibold text-sm',
+                'bg-cyan-500 text-white rounded-md shadow-sm'
+              )}
             >
               Generate
             </button>

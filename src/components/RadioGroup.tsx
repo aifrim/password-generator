@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { Accessor, createEffect, Setter } from 'solid-js'
 import Radio from '../components/Radio'
 
@@ -30,7 +31,7 @@ export default function CheckboxGroup<T extends string = string>({
 
   return (
     <div ref={typeGroup}>
-      {title ? <h4 class='font-bold mb-1'>{title}</h4> : null}
+      {title ? <h4 class={classNames('font-bold mb-1')}>{title}</h4> : null}
 
       {options?.map(({ value: v, title }) => (
         <Radio

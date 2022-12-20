@@ -1,4 +1,5 @@
-import { createEffect, createSignal } from 'solid-js'
+import classNames from 'classnames'
+import { createSignal } from 'solid-js'
 
 type RadioProps = {
   checked: boolean
@@ -27,10 +28,7 @@ export default function Radio({
 
   return (
     <div
-      class='
-        flex gap-2
-        hover:cursor-pointer
-      '
+      class={classNames('flex gap-2', 'hover:cursor-pointer')}
       onClick={onClick}
     >
       <input type='radio' name={name} value={value} checked={checked()} />

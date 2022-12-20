@@ -1,11 +1,24 @@
+import classNames from 'classnames'
 import { A } from 'solid-start'
 import Footer from '../components/Footer'
 
 export default function NotFound() {
   return (
-    <main class='w-full h-full flex items-center justify-center text-center mx-auto text-gray-700 p-4'>
+    <main
+      class={classNames(
+        'w-full h-full',
+        'flex items-center justify-center text-center',
+        'mx-auto p-4',
+        'text-gray-700'
+      )}
+    >
       <div>
-        <h1 class='max-6-xs text-6xl text-sky-700 uppercase my-16'>
+        <h1
+          class={classNames(
+            'max-6-xs my-16',
+            'text-6xl text-sky-700 uppercase'
+          )}
+        >
           ¯\_(ツ)_/¯
         </h1>
 

@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { createSignal } from 'solid-js'
 
 type CheckboxProps = {
@@ -23,10 +24,7 @@ export default function Checkbox({
 
   return (
     <div
-      class='
-        flex gap-2
-        hover:cursor-pointer
-      '
+      class={classNames('flex gap-2', 'hover:cursor-pointer')}
       onClick={onClick}
     >
       <input type='checkbox' checked={checked()} />

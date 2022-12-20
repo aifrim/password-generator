@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { Accessor, createEffect, createSignal } from 'solid-js'
 import zxcvbn from 'zxcvbn'
 
@@ -33,28 +34,18 @@ export default function Estimation({ password }: EstimationProps) {
     }
   }
 
+  const genericClasses = classNames(
+    'min-h-[10px]',
+    'ease-linear duration-200',
+    'grow rounded-md'
+  )
+
   return (
     <div class='flex gap-2'>
-      <div
-        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
-          25
-        )}`}
-      />
-      <div
-        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
-          50
-        )}`}
-      />
-      <div
-        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
-          75
-        )}`}
-      />
-      <div
-        class={`min-h-[10px] ease-linear duration-200 grow rounded-md ${getColor(
-          100
-        )}`}
-      />
+      <div class={classNames(genericClasses, getColor(25))} />
+      <div class={classNames(genericClasses, getColor(50))} />
+      <div class={classNames(genericClasses, getColor(75))} />
+      <div class={classNames(genericClasses, getColor(100))} />
     </div>
   )
 }

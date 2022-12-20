@@ -1,5 +1,4 @@
-import { Accessor, createEffect } from 'solid-js'
-import { SetStoreFunction } from 'solid-js/store'
+import { Accessor } from 'solid-js'
 import Checkbox from './Checkbox'
 
 type RadioGroupProps<TKey extends string> = {
