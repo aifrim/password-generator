@@ -16,7 +16,7 @@ function read(path: string): Promise<string> {
 }
 
 export const appRouter = router({
-  getTodos: procedure
+  getMnemonics: procedure
     .input(
       z.object({
         size: z.number()
