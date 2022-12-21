@@ -171,16 +171,36 @@ export default function Home() {
             </div>
           </div>
 
-          <div>
+          <div class='flex justify-between'>
             <button
               onclick={generate}
               class={classNames(
                 'px-4 py-2',
                 'font-semibold text-sm',
-                'bg-cyan-500 text-white rounded-md shadow-sm'
+                'text-white rounded-md',
+                'bg-cyan-500 shadow-sm',
+                'hover:bg-cyan-700 hover:shadow-inner',
+                'ease-linear duration-200',
               )}
             >
               Generate
+            </button>
+            <button
+              class={classNames(
+                'flex gap-1 items-center',
+                'px-4 py-2',
+                'font-semibold text-sm',
+                'text-white rounded-md',
+                'bg-indigo-500 shadow-sm',
+                'hover:bg-indigo-700',
+                'ease-linear duration-200',
+              )}
+            >
+              <span class="material-symbols-rounded">
+                electric_bolt
+              </span>
+
+              Try it out
             </button>
           </div>
         </div>
