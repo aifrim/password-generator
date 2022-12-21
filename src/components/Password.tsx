@@ -19,7 +19,7 @@ export default function Password({ password, placeholder }: PasswordProps) {
       )}
     >
       <input
-        class={classNames(
+        class={classNames('pwd',
           'grow',
           'bg-transparent',
           'outline-none',
