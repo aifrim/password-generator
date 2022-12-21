@@ -88,6 +88,14 @@ export default function Home() {
     }
   })
 
+  const toggleTheme = () => {
+    if (document.body.classList.contains('dark')) {
+      document.body.classList.remove('dark')
+    } else {
+      document.body.classList.add('dark')
+    }
+  }
+
   return (
     <main
       class={classNames(
@@ -98,9 +106,26 @@ export default function Home() {
       )}
     >
       <div class='max-w-full w-[900px]'>
-        <h1 class={classNames('text-2xl text-red-700 font-bolder', 'my-4')}>
-          [draft] Password Generator
-        </h1>
+        <div class='flex justify-between items-center'>
+          <h1 class={classNames('text-2xl text-red-700 font-bolder', 'my-4')}>
+            [draft] Password Generator
+          </h1>
+
+          <span
+            class={classNames(
+              'material-symbols-rounded',
+              'text-3xl',
+              'cursor-pointer',
+              'px-1',
+              'rounded-md',
+              'ease-linear duration-200',
+              'hover:text-amber-500'
+            )}
+            onClick={toggleTheme}
+          >
+            dark_mode
+          </span>
+        </div>
 
         <div class='flex flex-col gap-2'>
           <Password password={password} placeholder='Waiting for password' />
@@ -180,7 +205,7 @@ export default function Home() {
                 'text-white rounded-md',
                 'bg-cyan-500 shadow-sm',
                 'hover:bg-cyan-700 hover:shadow-inner',
-                'ease-linear duration-200',
+                'ease-linear duration-200'
               )}
             >
               Generate
@@ -193,13 +218,10 @@ export default function Home() {
                 'text-white rounded-md',
                 'bg-indigo-500 shadow-sm',
                 'hover:bg-indigo-700',
-                'ease-linear duration-200',
+                'ease-linear duration-200'
               )}
             >
-              <span class="material-symbols-rounded">
-                electric_bolt
-              </span>
-
+              <span class='material-symbols-rounded'>electric_bolt</span>
               Try it out
             </button>
           </div>
