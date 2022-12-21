@@ -25,7 +25,7 @@ const defaultOptions: { key: keyof RandomPasswordCharacters; title: string }[] =
 
 export default function Home() {
   const [password, setPassword] = createSignal('')
-  const [type, setType] = createSignal<PasswordType>('random')
+  const [type, setType] = createSignal<PasswordType>('mnemonic')
 
   const [size, setSize] = createSignal(16)
   const [words, setWords] = createSignal(2)
