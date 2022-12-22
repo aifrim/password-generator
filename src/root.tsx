@@ -1,5 +1,6 @@
 // @refresh reload
-import { Suspense } from 'solid-js'
+import classNames from 'classnames'
+import { onMount, Suspense } from 'solid-js'
 import {
   Body,
   ErrorBoundary,
@@ -11,9 +12,24 @@ import {
   Scripts,
   Title
 } from 'solid-start'
+import { setTheme, theme } from '~/libs/theme'
+
 import './root.css'
 
 export default function Root() {
+  onMount(() => {
+    const storage = localStorage.getItem('theme')
+
+    if (
+      storage === 'dark' ||
+      (!storage && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      setTheme('dark')
+    } else {
+      setTheme('light')
+    }
+  })
+
   return (
     <Html lang='en'>
       <Head>
@@ -35,14 +51,16 @@ export default function Root() {
           href='https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
         />
       </Head>
-      <Body class='w-screen h-screen'>
-        <Suspense>
-          <ErrorBoundary>
-            <Routes>
-              <FileRoutes />
-            </Routes>
-          </ErrorBoundary>
-        </Suspense>
+      <Body class={classNames('w-screen h-screen', theme())}>
+        {theme() ? (
+          <Suspense>
+            <ErrorBoundary>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </ErrorBoundary>
+          </Suspense>
+        ) : null}
         <Scripts />
       </Body>
     </Html>

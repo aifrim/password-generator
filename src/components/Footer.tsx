@@ -13,7 +13,14 @@ export default function Footer() {
       >
         <span>build with</span>
 
-        <span class={classNames('material-symbols-rounded', 'text-red-600')}>
+        <span
+          class={classNames(
+            'material-symbols-rounded',
+            'ease-linear duration-200',
+            'text-red-600',
+            'dark:text-red-300'
+          )}
+        >
           favorite
         </span>
 
@@ -31,7 +38,13 @@ export default function Footer() {
 
       <div class='flex items-center gap-2'>
         <a target='_blank' href='https://github.com/aifrim/password-generator'>
-          <img src='/github-mark.svg' class='h-[24px]' />
+          <img
+            src='/github-mark.svg'
+            class={classNames(
+              'h-[24px] dark:invert',
+              'ease-linear duration-200'
+            )}
+          />
         </a>
 
         <a target='_blank' href='https://aifrim.com'>

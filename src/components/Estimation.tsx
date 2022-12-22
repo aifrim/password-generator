@@ -20,17 +20,17 @@ export default function Estimation({ password }: EstimationProps) {
 
   const getColor = (wanted: number) => {
     if (estimation() < wanted) {
-      return 'bg-slate-200'
+      return 'bg-slate-200 dark:bg-slate-700'
     }
 
     if (estimation() <= 25) {
-      return 'bg-red-400'
+      return 'bg-red-400 dark:bg-red-500'
     } else if (estimation() <= 50) {
-      return 'bg-amber-400'
+      return 'bg-amber-400 dark:bg-amber-500'
     } else if (estimation() <= 75) {
-      return 'bg-lime-400'
+      return 'bg-lime-400 dark:bg-lime-500'
     } else {
-      return 'bg-green-400'
+      return 'bg-green-400 dark:bg-green-500'
     }
   }
 

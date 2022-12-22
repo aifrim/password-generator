@@ -7,6 +7,7 @@ import Footer from '~/components/Footer'
 import Password from '~/components/Password'
 import RadioGroup from '~/components/RadioGroup'
 import Range from '~/components/Range'
+import ThemeToggler from '~/components/ThemeToggler'
 import generateMnemonicPassword from '~/libs/generate-mnemonic-password'
 import generateRandomPassword, {
   RandomPasswordCharacters,
@@ -90,43 +91,32 @@ export default function Home() {
     }
   })
 
-  const toggleTheme = () => {
-    if (document.body.classList.contains('dark')) {
-      document.body.classList.remove('dark')
-    } else {
-      document.body.classList.add('dark')
-    }
-  }
-
   return (
     <main
       class={classNames(
         'w-screen h-screen',
         'flex items-center justify-center',
         'mx-auto  p-4',
-        'text-gray-700 bg-slate-50'
+        'ease-linear duration-200',
+        'text-gray-700 bg-slate-50',
+        'dark:text-gray-200 dark:bg-slate-800'
       )}
     >
       <div class='max-w-full w-[900px]'>
         <div class='flex justify-between items-center'>
-          <h1 class={classNames('text-2xl text-red-700 font-bolder', 'my-4')}>
+          <h1
+            class={classNames(
+              'text-2xl font-bolder',
+              'my-4',
+              'ease-linear duration-200',
+              'text-red-700',
+              'dark:text-red-200'
+            )}
+          >
             [draft] Password Generator
           </h1>
 
-          <span
-            class={classNames(
-              'material-symbols-rounded',
-              'text-3xl',
-              'cursor-pointer',
-              'px-1',
-              'rounded-md',
-              'ease-linear duration-200',
-              'hover:text-amber-500'
-            )}
-            onClick={toggleTheme}
-          >
-            dark_mode
-          </span>
+          <ThemeToggler />
         </div>
 
         <div class='flex flex-col gap-2'>
@@ -138,11 +128,21 @@ export default function Home() {
             class={classNames(
               'block w-full',
               'px-3 py-2',
-              'bg-white border border-slate-200',
-              'rounded-md'
+              'border rounded-md',
+              'ease-linear duration-200',
+              'bg-white border-slate-200',
+              'dark:bg-black border-slate-700 '
             )}
           >
-            <h2 class={classNames('mb-2', 'text-xl text-sky-700 font-bolder')}>
+            <h2
+              class={classNames(
+                'mb-2',
+                'text-xl font-bolder',
+                'ease-linear duration-200',
+                'text-sky-700',
+                'dark:text-sky-200'
+              )}
+            >
               Customize your password
             </h2>
 
@@ -202,12 +202,14 @@ export default function Home() {
             <button
               onclick={update}
               class={classNames(
+                'flex gap-1 items-center',
                 'px-4 py-2',
-                'font-semibold text-sm',
-                'text-white rounded-md',
-                'bg-cyan-500 shadow-sm',
+                'font-semibold text-sm shadow-sm rounded-md',
+                'ease-linear duration-200',
+                'text-white bg-cyan-500',
                 'hover:bg-cyan-700 hover:shadow-inner',
-                'ease-linear duration-200'
+                'dark:text-black dark:bg-cyan-400',
+                'dark:hover:bg-cyan-200'
               )}
             >
               Generate
@@ -216,11 +218,12 @@ export default function Home() {
               class={classNames(
                 'flex gap-1 items-center',
                 'px-4 py-2',
-                'font-semibold text-sm',
-                'text-white rounded-md',
-                'bg-indigo-500 shadow-sm',
-                'hover:bg-indigo-700',
-                'ease-linear duration-200'
+                'font-semibold text-sm shadow-sm rounded-md',
+                'ease-linear duration-200',
+                'text-white bg-indigo-500',
+                'hover:bg-indigo-700 hover:shadow-inner',
+                'dark:text-black dark:bg-indigo-400',
+                'dark:hover:bg-indigo-200'
               )}
             >
               <span class='material-symbols-rounded'>electric_bolt</span>
