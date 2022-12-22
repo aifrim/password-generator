@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { createEffect, createSignal, onMount } from 'solid-js'
+import { createEffect, createResource, createSignal } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import CheckboxGroup from '~/components/CheckboxGroup'
 import Estimation from '~/components/Estimation'
@@ -24,8 +24,7 @@ const defaultOptions: { key: keyof RandomPasswordCharacters; title: string }[] =
   ]
 
 export default function Home() {
-  const [password, setPassword] = createSignal('')
-  const [type, setType] = createSignal<PasswordType>('mnemonic')
+  const [type, setType] = createSignal<PasswordType>('random')
 
   const [size, setSize] = createSignal(16)
   const [words, setWords] = createSignal(2)
@@ -42,21 +41,24 @@ export default function Home() {
 
   const [options, setOptions] = createSignal(defaultOptions)
 
-  const generate = () => {
+  const generate = async () => {
     if (type() === 'random') {
-      const pwd = generateRandomPassword(size(), {
+      return generateRandomPassword(size(), {
         structure: structure(),
         ...characters
       })
-
-      setPassword(pwd)
     } else {
-      generateMnemonicPassword(words()).then((pwd) => setPassword(pwd))
+      return generateMnemonicPassword(words())
     }
   }
 
-  onMount(generate)
-  createEffect(generate)
+  const [password, { mutate }] = createResource(generate)
+
+  const update = async () => mutate(await generate())
+
+  // FIXME: figure out a way so that this effect is not called again after load
+  // because the resource has data already
+  createEffect(update)
 
   createEffect(() => {
     switch (structure()) {
@@ -198,7 +200,7 @@ export default function Home() {
 
           <div class='flex justify-between'>
             <button
-              onclick={generate}
+              onclick={update}
               class={classNames(
                 'px-4 py-2',
                 'font-semibold text-sm',

@@ -1,20 +1,20 @@
 import classNames from 'classnames'
-import { Accessor, createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, Resource } from 'solid-js'
 import zxcvbn from 'zxcvbn'
 
 type EstimationProps = {
-  password: Accessor<string>
+  password: Resource<string>
 }
 
 export default function Estimation({ password }: EstimationProps) {
   const [estimation, setEstimation] = createSignal(0)
 
   createEffect(() => {
-    if (!password().length) {
+    if (!password()?.length) {
       return
     }
 
-    const zxcvbnEst = zxcvbn(password())
+    const zxcvbnEst = zxcvbn(password() || '')
     setEstimation((zxcvbnEst.score * 100) / 4)
   })
 

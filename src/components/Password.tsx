@@ -1,8 +1,8 @@
 import classNames from 'classnames'
-import { Accessor } from 'solid-js'
+import { Resource } from 'solid-js'
 
 type PasswordProps = {
-  password: Accessor<string>
+  password: Resource<string>
   placeholder: string
 }
 
